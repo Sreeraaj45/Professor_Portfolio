@@ -8,7 +8,7 @@ const navItems = [
   { path: '/about', icon: User, label: 'About' },
   { path: '/skills', icon: Code2, label: 'Skills' },
   { path: '/projects', icon: Briefcase, label: 'Projects' },
-  { path: '/courses', icon: Book, label: 'Courses' }, 
+  { path: '/courses', icon: Book, label: 'Courses' },
   { path: '/contact', icon: Mail, label: 'Contact' },
 ];
 
@@ -20,39 +20,45 @@ export default function Sidebar() {
       {/* Mobile Menu Toggle Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed top-4 left-8 z-50 p-2 bg-white rounded-lg shadow-lg transition-all hover:scale-105 active:scale-95 md:hidden"
+        className="fixed top-4 left-8 z-50 p-2 bg-white rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 active:scale-95 md:hidden"
       >
-        {isOpen ? <X size={24} className="text-gray-800" /> : <Menu size={24} className="text-gray-800" />}
+        {isOpen ? <X size={28} className="text-gray-800" /> : <Menu size={28} className="text-gray-800" />}
       </button>
 
       {/* Sidebar */}
       <aside
-        className={`fixed inset-y-0 left-0 z-40 w-64 bg-white border-r shadow-lg transform transition-transform duration-300 ease-in-out ${
+        className={`fixed inset-y-0 left-0 z-40 w-64 bg-white/80 backdrop-blur-lg border-r border-gray-300 shadow-xl transform transition-transform duration-300 ease-in-out ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         } md:translate-x-0`}
       >
         <div className="flex flex-col h-full">
           
           {/* Profile Section */}
-          <div className="p-6 text-center border-b bg-gradient-to-r from-blue-50 to-blue-100">
-            <img
-              src={ProfilePic}
-              alt="Profile"
-              className="w-24 h-24 mx-auto rounded-full object-cover border-4 border-white shadow-md transition-transform hover:scale-105"
-            />
-            <h2 className="text-xl font-bold mt-3 text-gray-900">Sunil CK</h2>
-            <p className="text-gray-600">Assistant Professor</p>
+          <div className="p-6 text-center border-b bg-gradient-to-r from-blue-100 to-blue-300">
+            <div className="w-20 h-20 mx-auto">
+              <img
+                src={ProfilePic}
+                alt="Profile"
+                className="w-full h-full rounded-full object-cover border-4 border-white shadow-md transition-transform duration-300 hover:scale-110"
+              />
+            </div>
+            <h2 className="text-lg font-semibold mt-3 text-gray-900 hover:text-blue-600 transition-all">
+              Sunil CK
+            </h2>
+            <p className="text-gray-700 text-sm">Assistant Professor</p>
           </div>
 
           {/* Navigation Links */}
-          <nav className="flex-1 px-4 mt-4">
+          <nav className="flex-1 px-4 mt-4 space-y-1">
             {navItems.map(({ path, icon: Icon, label }) => (
               <NavLink
                 key={path}
                 to={path}
                 className={({ isActive }) =>
-                  `flex items-center px-4 py-3 mb-2 rounded-lg transition-all text-gray-700 ${
-                    isActive ? 'bg-blue-100 text-blue-600' : 'hover:bg-gray-100 hover:pl-5'
+                  `flex items-center px-4 py-3 rounded-lg transition-all duration-300 ${
+                    isActive
+                      ? 'bg-blue-500 text-white shadow-md'
+                      : 'text-gray-800 hover:bg-blue-100 hover:pl-6 hover:shadow-lg'
                   }`
                 }
                 onClick={() => setIsOpen(false)}
@@ -64,12 +70,12 @@ export default function Sidebar() {
           </nav>
 
           {/* Social Links */}
-          <div className="p-6 border-t flex justify-center space-x-6">
+          <div className="p-4 border-t flex justify-center space-x-5">
             <a
               href="https://github.com/sunilchinnahalli"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-500 transition-transform hover:scale-110 hover:text-gray-900"
+              className="text-gray-500 transition-transform duration-300 hover:scale-125 hover:text-gray-900"
             >
               <Github size={22} />
             </a>
@@ -77,18 +83,10 @@ export default function Sidebar() {
               href="https://in.linkedin.com/in/sunil-ck-ph-d-4599237a?original_referer=https%3A%2F%2Fwww.google.com%2F"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-500 transition-transform hover:scale-110 hover:text-gray-900"
+              className="text-gray-500 transition-transform duration-300 hover:scale-125 hover:text-gray-900"
             >
               <Linkedin size={22} />
             </a>
-            {/* <a
-              href=""
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-500 transition-transform hover:scale-110 hover:text-gray-900"
-            >
-              <Twitter size={22} />
-            </a> */}
           </div>
         </div>
       </aside>

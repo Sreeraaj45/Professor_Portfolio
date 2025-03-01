@@ -136,11 +136,12 @@ export default function Projects() {
                   ))}
                 </div>
 
+                {/* Updated Button with Blue Gradient */}
                 <a
                   href={project.demoUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block text-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300"
+                  className="inline-block text-center px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-700 text-white rounded-lg shadow-md hover:scale-105 hover:shadow-lg transition-all duration-300"
                 >
                   Article
                 </a>
@@ -152,3 +153,4 @@ export default function Projects() {
     </div>
   );
 }
+

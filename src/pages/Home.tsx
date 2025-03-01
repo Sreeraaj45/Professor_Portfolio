@@ -1,4 +1,4 @@
-import { ArrowRight, Download, ChevronLeft, ChevronRight } from 'lucide-react'; // Importing icons
+import { ArrowRight, Download, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import iiitImage from '../assets/iiit.jpeg';
@@ -7,7 +7,7 @@ import p2 from '../assets/p2.jpeg';
 import p3 from '../assets/p3.jpeg';
 import resumePDF from '../assets/resume.pdf';
 
-// Import Poppins font via Google Fonts
+// Load Poppins Font
 const loadPoppins = () => {
   const link = document.createElement('link');
   link.href = 'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap';
@@ -24,11 +24,11 @@ export default function Home() {
   const images = [iiitImage, p1, p2, p3];
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFading, setIsFading] = useState(false);
-  const [intervalId, setIntervalId] = useState<number | null>(null); // ✅ Fixed TypeScript issue
+  const [intervalId, setIntervalId] = useState<number | null>(null);
 
-  // Function to Start Auto-Slide Timer (10 Seconds)
+  // Auto-Slide Timer (10 Seconds)
   const startAutoSlide = () => {
-    if (intervalId) clearInterval(intervalId); // ✅ Clears previous interval before starting new one
+    if (intervalId) clearInterval(intervalId);
     const newInterval = window.setInterval(() => {
       setIsFading(true);
       setTimeout(() => {
@@ -39,33 +39,31 @@ export default function Home() {
     setIntervalId(newInterval);
   };
 
-  // Initialize Auto-Sliding on Mount & Cleanup on Unmount
   useEffect(() => {
     startAutoSlide();
     return () => {
-      if (intervalId) clearInterval(intervalId); // ✅ Cleanup function properly clears interval
+      if (intervalId) clearInterval(intervalId);
     };
   }, []);
 
-  // Navigate to next image & reset timer
+  // Manual Navigation
   const nextImage = () => {
-    if (intervalId) clearInterval(intervalId); // ✅ Clear previous interval before setting new one
+    if (intervalId) clearInterval(intervalId);
     setIsFading(true);
     setTimeout(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
       setIsFading(false);
-      startAutoSlide(); // ✅ Restart timer immediately after navigation
+      startAutoSlide();
     }, 400);
   };
 
-  // Navigate to previous image & reset timer
   const prevImage = () => {
-    if (intervalId) clearInterval(intervalId); // ✅ Clear previous interval before setting new one
+    if (intervalId) clearInterval(intervalId);
     setIsFading(true);
     setTimeout(() => {
       setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
       setIsFading(false);
-      startAutoSlide(); // ✅ Restart timer immediately after navigation
+      startAutoSlide();
     }, 400);
   };
 
@@ -79,7 +77,7 @@ export default function Home() {
             Hi, I'm <span className="text-blue-600">Sunil CK</span>
           </h1>
           <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-            Assistant Professor at IIIT Dharwad, passionate about teaching and research
+            Assistant Professor at IIIT Dharwad, passionate about teaching and research.
           </p>
 
           {/* Buttons Container */}
@@ -87,17 +85,17 @@ export default function Home() {
             {/* View My Work Button */}
             <Link
               to="/projects"
-              className="inline-flex items-center px-6 py-3 bg-blue-600 text-white text-lg font-medium rounded-lg shadow-md hover:bg-blue-700 transition-all duration-300 transform hover:scale-105"
+              className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-700 text-white text-lg font-medium rounded-lg shadow-md hover:scale-105 hover:shadow-lg transition-all duration-300"
             >
               View My Work
               <ArrowRight size={20} className="ml-2" />
             </Link>
 
-            {/* Download Resume Button */}
+            {/* Download Resume Button (Now Green) */}
             <a
               href={resumePDF}
               download="Sunil_CK_Resume.pdf"
-              className="inline-flex items-center px-6 py-3 bg-green-600 text-white text-lg font-medium rounded-lg shadow-md hover:bg-green-700 transition-all duration-300 transform hover:scale-105"
+              className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-500 to-green-700 text-white text-lg font-medium rounded-lg shadow-md hover:scale-105 hover:shadow-lg transition-all duration-300"
             >
               Download Resume
               <Download size={20} className="ml-2" />
@@ -107,12 +105,12 @@ export default function Home() {
         
         {/* Right Section - Image Slider Card */}
         <div className="relative flex-1" data-aos="fade-left">
-          <div className="bg-white rounded-lg shadow-lg p-4 relative w-full max-w-md">
+          <div className="bg-gradient-to-br from-white to-gray-100 rounded-2xl shadow-lg p-6 relative w-full max-w-md border border-gray-300 hover:shadow-2xl transition-all">
             {/* Image Display with Fade Effect */}
             <div className="relative">
               <img
                 src={images[currentIndex]}
-                className={`w-full h-80 object-cover rounded-lg shadow-md border border-gray-300 hover:shadow-xl transition-opacity duration-500 ${
+                className={`w-full h-80 object-cover rounded-lg shadow-md transition-opacity duration-500 ${
                   isFading ? 'opacity-0' : 'opacity-100'
                 }`}
                 alt="Slider Image"
@@ -124,7 +122,7 @@ export default function Home() {
               {/* Left Arrow */}
               <button
                 onClick={prevImage}
-                className="bg-white bg-opacity-60 backdrop-blur-md text-gray-800 p-3 rounded-full shadow-md hover:bg-opacity-90 hover:scale-110 transition-all border border-gray-300"
+                className="bg-gradient-to-r from-blue-200 to-blue-400 text-gray-800 p-3 rounded-full shadow-md hover:scale-110 transition-all border border-gray-300"
               >
                 <ChevronLeft size={24} />
               </button>
@@ -132,7 +130,7 @@ export default function Home() {
               {/* Right Arrow */}
               <button
                 onClick={nextImage}
-                className="bg-white bg-opacity-60 backdrop-blur-md text-gray-800 p-3 rounded-full shadow-md hover:bg-opacity-90 hover:scale-110 transition-all border border-gray-300"
+                className="bg-gradient-to-r from-blue-200 to-blue-400 text-gray-800 p-3 rounded-full shadow-md hover:scale-110 transition-all border border-gray-300"
               >
                 <ChevronRight size={24} />
               </button>

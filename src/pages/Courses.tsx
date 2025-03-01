@@ -24,14 +24,6 @@ const courseDetails = {
       ]
     },
   ],
-  references: [
-    "Visualization Analysis and Design, Tamara Munzner, CRC Press, 2014",
-    "Visualize This: The Flowing Data Guide to Design, Nathan Yau, Wiley, 2011",
-    "Fundamental Statistical Concepts in Presenting Data: Rafe Donahue, 2011",
-    "Deep Learning: A Practitioner’s Approach, Josh Patterson & Adam Gibson, O’Reilly, 2017",
-    "Deep Learning, Ian Goodfellow, Y. Bengio & A. Courville, MIT Press, 2016",
-  ],
-  
   driveLink: "https://drive.google.com/your-google-drive-file-link",
 };
 
@@ -61,7 +53,7 @@ export default function Courses() {
       {/* Course Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         <div
-          className="p-6 bg-white shadow-xl rounded-xl cursor-pointer transition-all transform hover:scale-105 hover:shadow-2xl hover:bg-blue-600 hover:text-white text-gray-900 flex flex-col items-center justify-center"
+          className="p-6 bg-white shadow-xl rounded-xl cursor-pointer transition-all transform hover:scale-105 hover:shadow-2xl hover:bg-gradient-to-r from-blue-100 to-blue-300 hover:text-gray-900 text-gray-900 flex flex-col items-center justify-center"
           onClick={() => setIsModalOpen(true)}
         >
           <BookOpen size={50} className="mb-4 transition-transform duration-300 hover:rotate-12" />
@@ -71,7 +63,7 @@ export default function Courses() {
 
       {/* Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 backdrop-blur-md p-4 animate-fade-in">
+        <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-40 backdrop-blur-lg p-4 animate-fade-in">
           <div ref={modalRef} className="bg-white bg-opacity-90 backdrop-blur-xl p-6 rounded-2xl shadow-2xl max-w-2xl w-full relative scale-95 animate-scale-in border border-gray-200">
             {/* Close Button */}
             <button
@@ -97,7 +89,7 @@ export default function Courses() {
                   <strong className="block text-gray-900">{section.title}</strong>
                   <ul className="list-disc pl-5 text-gray-600 text-sm">
                     {section.points.map((point, i) => (
-                      <li key={i} className="hover:text-blue-500 transition-all">{point}</li>
+                      <li key={i} className="hover:text-blue-500 transition-all duration-200">{point}</li>
                     ))}
                   </ul>
                 </div>

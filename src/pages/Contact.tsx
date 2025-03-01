@@ -106,9 +106,10 @@ export default function Contact() {
               </div>
             )}
 
+            {/* Updated Button with Gradient and Hover Effects */}
             <button
               type="submit"
-              className="w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 hover:scale-105 transition-all duration-300"
+              className="w-full px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-700 text-white rounded-lg shadow-md hover:scale-105 hover:shadow-lg transition-all duration-300"
               value="Send"
             >
               Send Message

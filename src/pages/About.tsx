@@ -132,7 +132,7 @@ export default function About() {
               ].map(({ label, link, icon }, index) => (
                 <a key={index} href={link} target="_blank" rel="noopener noreferrer" className="block">
                   <button 
-                    className="flex items-center gap-4 p-3 rounded-lg bg-gray-50 hover:bg-blue-100 transition-all duration-300 shadow-sm hover:shadow-md w-full"
+                    className="flex items-center gap-4 p-3 rounded-lg bg-gray-100 hover:bg-blue-100 transition-all duration-300 shadow-sm hover:shadow-md w-full"
                   >
                     {/* Icon Wrapper */}
                     <span className="w-10 h-10 flex items-center justify-center bg-blue-600 text-white rounded-full group-hover:scale-110 transition-transform duration-300">
@@ -205,6 +205,7 @@ export default function About() {
                     src="https://maps.google.com/maps?q=IIIT+Dharwad,+Karnataka-580009&output=embed"
                     width="100%"
                     height="250"
+                    className="rounded-lg mt-4 border"
                     style={{ border: "0", borderRadius: "10px", marginTop: "10px" }}
                     allowFullScreen={true}
                     loading="lazy"
