@@ -7,6 +7,8 @@ import {
   VerticalTimelineElement,
 } from "react-vertical-timeline-component";
 import "react-vertical-timeline-component/style.min.css";
+import sunilckImg from "../assets/sunilck.jfif";
+
 
 // Import images for education
 import kvgImg from "../assets/kvg.jfif";
@@ -49,20 +51,34 @@ export default function About() {
           <h2 className="text-4xl font-bold mb-8 text-center text-gray-800" data-aos="fade-down">
           About Me
           </h2>
-          <div className="bg-white rounded-xl shadow-md p-8 transition-all hover:shadow-lg transform hover:scale-105 duration-300" data-aos="fade-up">
-            <p className="text-lg text-gray-700 leading-relaxed">
-              I am an <strong>Assistant Professor at IIIT Dharwad</strong> with a passion for teaching and research in 
-              <strong> Machine Learning, Deep Learning,</strong> and <strong>Artificial Intelligence</strong>. I hold a <strong>Ph.D.</strong> from 
-              <strong> NIT Karnataka</strong>, where my research focused on <strong>deep learning-based plant disease detection 
-              and classification</strong>. My work has been published in <strong>reputed journals</strong>, contributing to 
-              advancements in <strong>computer vision</strong> and <strong>AI-driven agriculture</strong>.
-            </p>
-            <p className="text-lg text-gray-700 mt-4 leading-relaxed">
-              With a background in <strong>Computer Science and Software Engineering</strong> (<strong>B.E, M.Eng</strong>), 
-              I specialize in <strong>ML, deep learning, and security applications</strong>. My research interests include&nbsp;   
-               <strong>efficient neural network architectures, AI interpretability, and real-world ML applications</strong>.
-            </p>
+          <div 
+            className="bg-white rounded-xl shadow-md p-8 flex flex-col md:flex-row items-center md:items-center gap-6 transition-all hover:shadow-lg transform hover:scale-105 duration-300"
+            data-aos="fade-up"
+          >
+            {/* Profile Image */}
+            <img 
+              src={sunilckImg} 
+              alt="Sunil CK" 
+              className="w-40 h-40 md:w-48 md:h-48 rounded-full border-4 border-gray-300 shadow-md hover:shadow-lg transform hover:scale-110 transition-all duration-300 self-center md:self-start mt-4 md:mt-0"
+            />
+
+            {/* Text Content */}
+            <div className="text-left flex-1">
+              <p className="text-lg text-gray-700 leading-relaxed">
+                I am an <strong>Assistant Professor at IIIT Dharwad</strong> with a passion for teaching and research in 
+                <strong> Machine Learning, Deep Learning,</strong> and <strong>Artificial Intelligence</strong>. I hold a <strong>Ph.D.</strong> from 
+                <strong> NIT Karnataka</strong>, where my research focused on <strong>deep learning-based plant disease detection 
+                and classification</strong>. My work has been published in <strong>reputed journals</strong>, contributing to 
+                advancements in <strong>computer vision</strong> and <strong>AI-driven agriculture</strong>.
+              </p>
+              <p className="text-lg text-gray-700 mt-4 leading-relaxed">
+                With a background in <strong>Computer Science and Software Engineering</strong> (<strong>B.E, M.Eng</strong>), 
+                I specialize in <strong>ML, deep learning, and security applications</strong>. My research interests include&nbsp;   
+                <strong>efficient neural network architectures, AI interpretability, and real-world ML applications</strong>.
+              </p>
+            </div>
           </div>
+
 
 
         {/* Education - Vertical Timeline */}

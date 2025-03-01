@@ -5,6 +5,7 @@ import iiitImage from '../assets/iiit.jpeg';
 import p1 from '../assets/p1.jpeg';
 import p2 from '../assets/p2.jpeg';
 import p3 from '../assets/p3.jpeg';
+import p4 from '../assets/running.jpg';
 import resumePDF from '../assets/resume.pdf';
 
 // Load Poppins Font
@@ -21,7 +22,7 @@ export default function Home() {
   }, []);
 
   // Image Slider State
-  const images = [iiitImage, p1, p2, p3];
+  const images = [iiitImage,  p4, p1, p2, p3];
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFading, setIsFading] = useState(false);
   const [intervalId, setIntervalId] = useState<number | null>(null);
