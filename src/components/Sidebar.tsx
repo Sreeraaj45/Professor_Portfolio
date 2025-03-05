@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Menu, X, Home, User, Code2, Briefcase, Mail, Github, Linkedin, Book } from 'lucide-react';
+import { Menu, X, Home, User, Code2, Briefcase, Mail, Github, Linkedin, Book, Calendar } from 'lucide-react';
 import ProfilePic from '../assets/profile-pic.png';
 
 const navItems = [
@@ -9,6 +9,7 @@ const navItems = [
   { path: '/skills', icon: Code2, label: 'Skills' },
   { path: '/projects', icon: Briefcase, label: 'Projects' },
   { path: '/courses', icon: Book, label: 'Courses' },
+  { path: '/timetable', icon: Calendar, label: 'Timetable' }, // Added Timetable option
   { path: '/contact', icon: Mail, label: 'Contact' },
 ];
 

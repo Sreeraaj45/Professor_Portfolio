@@ -5,6 +5,7 @@ import Skills from '../pages/Skills';
 import Projects from '../pages/Projects';
 import Contact from '../pages/Contact';
 import Courses from '../pages/Courses';
+import Timetable from '../pages/Timetable.tsx';
 
 export default function AppRoutes() {
   return (
@@ -15,6 +16,7 @@ export default function AppRoutes() {
       <Route path="/projects" element={<Projects />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/courses" element={<Courses />} />
+      <Route path="/timetable" element={<Timetable />} />
     </Routes>
   );
 }

@@ -206,16 +206,30 @@ export default function Courses() {
                 </div>
               ))}
 
-              {/* Download Button */}
-              <a
-                href={selectedCourse.driveLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 bg-blue-500 text-white text-sm font-medium px-4 py-2 rounded-lg shadow-md hover:bg-blue-700 transition-all transform hover:scale-105"
-              >
-                <ExternalLink size={16} />
-                Open Drive
-              </a>
+              {/* Buttons - Open Drive & Marks */}
+              <div className="flex gap-3 mt-4">
+                {/* Open Drive Button */}
+                <a
+                  href={selectedCourse.driveLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 bg-blue-500 text-white text-sm font-medium px-4 py-2 rounded-lg shadow-md hover:bg-blue-700 transition-all transform hover:scale-105"
+                >
+                  <ExternalLink size={16} />
+                  Open Drive
+                </a>
+
+                {/* Marks Button - Google Sheets */}
+                <a
+                  href="https://docs.google.com/spreadsheets/d/your-google-sheets-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 bg-green-500 text-white text-sm font-medium px-4 py-2 rounded-lg shadow-md hover:bg-green-700 transition-all transform hover:scale-105"
+                >
+                  <ExternalLink size={16} />
+                  Marks
+                </a>
+              </div>
             </div>
           </div>
         </div>
