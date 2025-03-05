@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Menu, X, Home, User, Code2, Briefcase, Mail, Github, Linkedin, Book, Calendar } from 'lucide-react';
 import ProfilePic from '../assets/profile-pic.png';
+import IIITDWDIcon from '../assets/iiitdwd_icon.png';
 
 const navItems = [
   { path: '/', icon: Home, label: 'Home' },
@@ -9,7 +10,7 @@ const navItems = [
   { path: '/skills', icon: Code2, label: 'Skills' },
   { path: '/projects', icon: Briefcase, label: 'Projects' },
   { path: '/courses', icon: Book, label: 'Courses' },
-  { path: '/timetable', icon: Calendar, label: 'Timetable' }, // Added Timetable option
+  { path: '/timetable', icon: Calendar, label: 'Timetable' }, 
   { path: '/contact', icon: Mail, label: 'Contact' },
 ];
 
@@ -43,10 +44,20 @@ export default function Sidebar() {
                 className="w-full h-full rounded-full object-cover border-4 border-white shadow-md transition-transform duration-300 hover:scale-110"
               />
             </div>
-            <h2 className="text-lg font-semibold mt-3 text-gray-900 hover:text-blue-600 transition-all">
-              Sunil CK
-            </h2>
-            <p className="text-gray-700 text-sm">Assistant Professor</p>
+              <h2 className="text-lg font-semibold mt-3 text-gray-900 hover:text-blue-600 transition-all">
+                Sunil CK
+              </h2>
+              <p className="text-gray-700 text-sm mb-0 leading-tight">Assistant Professor at</p>
+
+            {/* College Icon Below Name */}
+            <div className="flex justify-center items-center -mt-8 -mb-12">
+            <img
+              src={IIITDWDIcon}
+              alt="IIITDWD Logo"
+              className="w-28 h-28 sm:w-32 sm:h-32 object-contain"
+            />
+            </div>
+
           </div>
 
           {/* Navigation Links */}

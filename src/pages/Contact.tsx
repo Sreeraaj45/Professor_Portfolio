@@ -44,6 +44,10 @@ export default function Contact() {
                   <Mail className="w-5 h-5 text-blue-600 mr-3" />
                   <span>sunilck@iiitdwd.ac.in</span>
                 </div>
+                <div className="flex items-center text-gray-700">
+                  <Mail className="w-5 h-5 text-blue-600 mr-3" />
+                  <span>sunilchinnahalli@gmail.com</span>
+                </div>
 
                 <div className="flex items-center text-gray-700">
                   <MapPin className="w-5 h-5 text-blue-600 mr-3" />

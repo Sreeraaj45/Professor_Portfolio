@@ -104,16 +104,16 @@ export default function Courses() {
 
         <div className="flex items-center gap-6">
           {/* Search Bar */}
-          <div className="relative flex items-center">
+          <div className="relative flex items-center w-full sm:w-auto">
             <Search size={20} className="absolute left-3 text-gray-500" />
             <input
               type="text"
               placeholder="Search courses..."
-              className="p-3 pl-10 border border-gray-300 rounded-lg bg-white shadow-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="p-3 pl-10 w-full border border-gray-300 rounded-lg bg-white shadow-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
-         </div>
+          </div>
 
         <div className="flex items-center gap-4">
           {/* Layout Toggle */}
@@ -126,7 +126,7 @@ export default function Courses() {
 
           {/* Semester Filter */}
           <select
-            className="p-3 border border-gray-300 rounded-lg bg-white shadow-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="p-3 border border-gray-300 rounded-lg bg-white shadow-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full sm:w-auto"
             value={selectedSemester}
             onChange={(e) => setSelectedSemester(e.target.value)}
           >
@@ -145,7 +145,7 @@ export default function Courses() {
             <div
               key={index}
               className={`bg-white shadow-md rounded-lg cursor-pointer transition-all transform hover:scale-105 hover:shadow-xl hover:bg-gradient-to-r from-blue-100 to-blue-300 hover:text-gray-900 
-                ${isGridView ? "w-[300px] p-5 flex flex-col items-center" : "w-[90%] max-w-[950px] p-6 flex items-center justify-between"}`}
+                ${isGridView ? "w-full sm:w-[250px] md:w-[300px] p-5 flex flex-col items-center" : "w-[90%] max-w-[950px] p-6 flex items-center justify-between"}`}
               onClick={() => { setSelectedCourse(course); setIsModalOpen(true); }}
             >
               {/* Show Icon Only in Grid Mode */}
@@ -174,8 +174,9 @@ export default function Courses() {
         <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-40 backdrop-blur-lg p-4">
           <div 
             ref={modalRef} 
-            className="bg-white p-6 rounded-2xl shadow-2xl max-w-2xl w-[90%] border border-gray-300 relative"
+            className="bg-white p-6 rounded-2xl shadow-2xl max-w-lg sm:max-w-xl md:max-w-2xl w-[90%] border border-gray-300 relative overflow-auto max-h-[90vh]"
           >
+
             {/* Close Button (Inside the Card) */}
             <button
               className="absolute top-3 right-3 text-gray-600 hover:text-red-500 transition"
@@ -207,13 +208,13 @@ export default function Courses() {
               ))}
 
               {/* Buttons - Open Drive & Marks */}
-              <div className="flex gap-3 mt-4">
+              <div className="flex flex-col sm:flex-row gap-4 w-full">
                 {/* Open Drive Button */}
                 <a
                   href={selectedCourse.driveLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 bg-blue-500 text-white text-sm font-medium px-4 py-2 rounded-lg shadow-md hover:bg-blue-700 transition-all transform hover:scale-105"
+                  className="flex items-center justify-center gap-2 bg-blue-500 text-white text-sm font-medium px-4 py-2 rounded-lg shadow-md hover:bg-blue-700 transition-all w-full sm:w-auto"
                 >
                   <ExternalLink size={16} />
                   Open Drive
@@ -224,7 +225,7 @@ export default function Courses() {
                   href="https://docs.google.com/spreadsheets/d/your-google-sheets-link"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 bg-green-500 text-white text-sm font-medium px-4 py-2 rounded-lg shadow-md hover:bg-green-700 transition-all transform hover:scale-105"
+                  className="flex items-center justify-center gap-2 bg-green-500 text-white text-sm font-medium px-4 py-2 rounded-lg shadow-md hover:bg-green-700 transition-all w-full sm:w-auto"
                 >
                   <ExternalLink size={16} />
                   Marks
