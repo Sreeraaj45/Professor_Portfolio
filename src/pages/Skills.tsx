@@ -4,7 +4,7 @@ const skills = [
     items: [
       { name: 'Python', level: 100 },
       { name: 'Java', level: 90 },
-      { name: 'C', level: 85 },
+      { name: 'C', level: 90 },
     ],
   },
 ];

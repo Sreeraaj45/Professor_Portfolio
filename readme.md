@@ -32,6 +32,7 @@ This project is a **personal portfolio website** built using **React, Tailwind C
 │   │   ├── Projects.tsx        # Research projects page
 │   │   ├── Skills.tsx          # Skills and expertise page
 │   │   ├── Courses.tsx         # Courses and academic details
+│   │   ├── Timetable.tsx       # Timetable
 │   │   ├── Contact.tsx         # Contact form page
 │   ├── 📂 routes/               # Route configurations
 │   │   ├── App.tsx             # Main app component
