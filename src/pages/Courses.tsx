@@ -58,32 +58,44 @@ export default function Courses() {
   const [isGridView, setIsGridView] = useState<boolean>(true);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
+  const [isAddCourseModalOpen, setIsAddCourseModalOpen] = useState<boolean>(false);
+  const [newCourse, setNewCourse] = useState<Course>({
+    name: "",
+    programme: "",
+    semester: "",
+    credits: "",
+    content: [],
+    driveLink: "",
+  });
   const modalRef = useRef<HTMLDivElement>(null);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [isAscending, setIsAscending] = useState<boolean>(true);
-
-
 
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
       if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
         setIsModalOpen(false);
+        setIsAddCourseModalOpen(false);
       }
     };
-    if (isModalOpen) {
+    if (isModalOpen || isAddCourseModalOpen) {
       document.addEventListener("mousedown", handleOutsideClick);
     }
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
-  }, [isModalOpen]);
+  }, [isModalOpen, isAddCourseModalOpen]);
+
+  const handleAddCourse = () => {
+    courses.push(newCourse);
+    setIsAddCourseModalOpen(false);
+    setNewCourse({ name: "", programme: "", semester: "", credits: "", content: [], driveLink: "" });
+  };
 
   const filteredCourses = courses
-  .filter(course => selectedSemester === "All" || course.semester === selectedSemester)
-  .filter(course => course.name.toLowerCase().includes(searchQuery.toLowerCase()))
-  .sort((a, b) => isAscending ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name));
-
-
+    .filter(course => selectedSemester === "All" || course.semester === selectedSemester)
+    .filter(course => course.name.toLowerCase().includes(searchQuery.toLowerCase()))
+    .sort((a, b) => isAscending ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name));
 
   return (
     <div className="container mx-auto px-6 py-10 min-h-screen bg-gradient-to-br from-gray-50 to-gray-200">
@@ -115,28 +127,112 @@ export default function Courses() {
             />
           </div>
 
-        <div className="flex items-center gap-4">
-          {/* Layout Toggle */}
-          <button
-            onClick={() => setIsGridView(!isGridView)}
-            className="p-2 bg-white shadow-md rounded-lg border border-gray-300 hover:bg-gray-100 transition"
-          >
-            {isGridView ? <List size={20} /> : <LayoutGrid size={20} />}
-          </button>
+          <div className="flex items-center gap-4">
+            {/* Layout Toggle */}
+            <button
+              onClick={() => setIsGridView(!isGridView)}
+              className="p-2 bg-white shadow-md rounded-lg border border-gray-300 hover:bg-gray-100 transition"
+            >
+              {isGridView ? <List size={20} /> : <LayoutGrid size={20} />}
+            </button>
 
-          {/* Semester Filter */}
-          <select
-            className="p-3 border border-gray-300 rounded-lg bg-white shadow-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full sm:w-auto"
-            value={selectedSemester}
-            onChange={(e) => setSelectedSemester(e.target.value)}
-          >
-            <option value="All">All Semesters</option>
-            <option value="First">Semester 1</option>
-            <option value="Sixth">Semester 6</option>
-          </select>
+            {/* Semester Filter */}
+            <select
+              className="p-3 border border-gray-300 rounded-lg bg-white shadow-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full sm:w-auto"
+              value={selectedSemester}
+              onChange={(e) => setSelectedSemester(e.target.value)}
+            >
+              <option value="All">All Semesters</option>
+              <option value="First">Semester 1</option>
+              <option value="Sixth">Semester 6</option>
+            </select>
+
+            {/* Add Course Button */}
+            <button
+              onClick={() => setIsAddCourseModalOpen(true)}
+              className="p-3 bg-green-500 text-white rounded-lg shadow-md hover:bg-green-700 transition"
+            >
+              Add Course
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+
+      {/* Add Course Modal */}
+      {isAddCourseModalOpen && (
+        <div
+          className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-40 backdrop-blur-lg p-4 z-50 modal-backdrop"
+        >
+          <div 
+            ref={modalRef} 
+            className="bg-white p-6 rounded-2xl shadow-2xl max-w-lg sm:max-w-xl md:max-w-2xl w-[90%] border border-gray-300 relative overflow-auto max-h-[90vh]"
+          >
+            <button
+              className="absolute top-3 right-3 text-gray-600 hover:text-red-500 transition"
+              onClick={() => setIsAddCourseModalOpen(false)}
+            >
+              <XCircle size={28} />
+            </button>
+
+            <h2 className="text-2xl font-bold text-center text-blue-600 mb-4">Add New Course</h2>
+
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleAddCourse();
+              }}
+              className="space-y-4"
+            >
+              <input
+                type="text"
+                placeholder="Course Name"
+                value={newCourse.name}
+                onChange={(e) => setNewCourse({ ...newCourse, name: e.target.value })}
+                className="w-full p-3 border border-gray-300 rounded-lg"
+                required
+              />
+              <input
+                type="text"
+                placeholder="Programme"
+                value={newCourse.programme}
+                onChange={(e) => setNewCourse({ ...newCourse, programme: e.target.value })}
+                className="w-full p-3 border border-gray-300 rounded-lg"
+                required
+              />
+              <input
+                type="text"
+                placeholder="Semester"
+                value={newCourse.semester}
+                onChange={(e) => setNewCourse({ ...newCourse, semester: e.target.value })}
+                className="w-full p-3 border border-gray-300 rounded-lg"
+                required
+              />
+              <input
+                type="text"
+                placeholder="Credits"
+                value={newCourse.credits}
+                onChange={(e) => setNewCourse({ ...newCourse, credits: e.target.value })}
+                className="w-full p-3 border border-gray-300 rounded-lg"
+                required
+              />
+              <input
+                type="url"
+                placeholder="Drive Link"
+                value={newCourse.driveLink}
+                onChange={(e) => setNewCourse({ ...newCourse, driveLink: e.target.value })}
+                className="w-full p-3 border border-gray-300 rounded-lg"
+                required
+              />
+              <button
+                type="submit"
+                className="w-full bg-blue-500 text-white p-3 rounded-lg shadow-md hover:bg-blue-700 transition"
+              >
+                Add Course
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
 
       {/* Course Layout (Grid / List) */}
       <div className={`flex flex-wrap justify-center gap-6 ${isGridView ? "md:justify-start" : "flex-col"}`}>
@@ -171,7 +267,7 @@ export default function Courses() {
 
       {/* Modal */}
       {isModalOpen && selectedCourse && (
-        <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-40 backdrop-blur-lg p-4">
+        <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-40 backdrop-blur-lg p-4 modal-backdrop">
           <div 
             ref={modalRef} 
             className="bg-white p-6 rounded-2xl shadow-2xl max-w-lg sm:max-w-xl md:max-w-2xl w-[90%] border border-gray-300 relative overflow-auto max-h-[90vh]"
@@ -238,3 +334,4 @@ export default function Courses() {
     </div>
   );
 }
+
