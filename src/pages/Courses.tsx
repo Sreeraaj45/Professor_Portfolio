@@ -8,6 +8,7 @@ type Course = {
   credits: string;
   content: { title: string; points: string[] }[];
   driveLink: string;
+  marksLink?: string; // Optional property for marks link
 };
 
 const courses: Course[] = [
@@ -66,6 +67,7 @@ export default function Courses() {
     credits: "",
     content: [],
     driveLink: "",
+    marksLink: "",
   });
   const modalRef = useRef<HTMLDivElement>(null);
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -89,7 +91,7 @@ export default function Courses() {
   const handleAddCourse = () => {
     courses.push(newCourse);
     setIsAddCourseModalOpen(false);
-    setNewCourse({ name: "", programme: "", semester: "", credits: "", content: [], driveLink: "" });
+    setNewCourse({ name: "", programme: "", semester: "", credits: "", content: [], driveLink: "", marksLink: "" });
   };
 
   const filteredCourses = courses
@@ -223,6 +225,69 @@ export default function Courses() {
                 className="w-full p-3 border border-gray-300 rounded-lg"
                 required
               />
+              <input
+                type="url"
+                placeholder="Marks GDrive Link"
+                value={newCourse.marksLink || ""}
+                onChange={(e) => setNewCourse({ ...newCourse, marksLink: e.target.value })}
+                className="w-full p-3 border border-gray-300 rounded-lg"
+                required
+              />
+
+              {/* Contents Section */}
+              <div className="space-y-2">
+                <h3 className="text-lg font-semibold text-gray-800">Contents</h3>
+                {newCourse.content.map((section, index) => (
+                  <div key={index} className="space-y-2 border p-3 rounded-lg">
+                    <input
+                      type="text"
+                      placeholder="Content Title"
+                      value={section.title}
+                      onChange={(e) => {
+                        const updatedContent = [...newCourse.content];
+                        updatedContent[index].title = e.target.value;
+                        setNewCourse({ ...newCourse, content: updatedContent });
+                      }}
+                      className="w-full p-2 border border-gray-300 rounded-lg"
+                      required
+                    />
+                    <textarea
+                      placeholder="Points (comma-separated)"
+                      value={section.points.join(", ")}
+                      onChange={(e) => {
+                        const updatedContent = [...newCourse.content];
+                        updatedContent[index].points = e.target.value.split(",").map((point) => point.trim());
+                        setNewCourse({ ...newCourse, content: updatedContent });
+                      }}
+                      className="w-full p-2 border border-gray-300 rounded-lg"
+                      required
+                    />
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const updatedContent = newCourse.content.filter((_, i) => i !== index);
+                        setNewCourse({ ...newCourse, content: updatedContent });
+                      }}
+                      className="text-red-500 hover:underline"
+                    >
+                      Remove Section
+                    </button>
+                  </div>
+                ))}
+                <button
+                  type="button"
+                  onClick={() =>
+                    setNewCourse({
+                      ...newCourse,
+                      content: [...newCourse.content, { title: "", points: [] }],
+                    })
+                  }
+                  className="text-blue-500 hover:underline"
+                >
+                  Add Section
+                </button>
+              </div>
+
               <button
                 type="submit"
                 className="w-full bg-blue-500 text-white p-3 rounded-lg shadow-md hover:bg-blue-700 transition"
@@ -318,7 +383,7 @@ export default function Courses() {
 
                 {/* Marks Button - Google Sheets */}
                 <a
-                  href="https://docs.google.com/spreadsheets/d/your-google-sheets-link"
+                  href={selectedCourse.marksLink}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2 bg-green-500 text-white text-sm font-medium px-4 py-2 rounded-lg shadow-md hover:bg-green-700 transition-all w-full sm:w-auto"
