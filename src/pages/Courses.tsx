@@ -11,7 +11,8 @@ type Course = {
   marksLink?: string; // Optional property for marks link
 };
 
-const courses: Course[] = [
+// Hardcoded courses
+const hardcodedCourses: Course[] = [
   {
     name: "Data Visualization and Analytics",
     programme: "B.Tech",
@@ -24,15 +25,15 @@ const courses: Course[] = [
       { title: "Non-Numerical Data Visualization:", points: ["Graphs, networks, treemaps, PCA, MDS."] },
       { title: "Visualization Systems:", points: ["Information visualization, database visualization."] },
       { title: "Trends & Tools:", points: ["Declarative & reactive programming."] },
-      { 
-        title: "Data Analytics:", 
+      {
+        title: "Data Analytics:",
         points: [
           "Statistical Modelling, Total Information Awareness.",
           "Distributed File Systems: MapReduce & Spark.",
           "Dimensionality Reduction: PCA, SVD.",
           "Mining Social Networks: Graph centrality, clustering, community detection.",
-          "Large-scale Machine Learning: MLP, RNN, CNN, LSTM."
-        ]
+          "Large-scale Machine Learning: MLP, RNN, CNN, LSTM.",
+        ],
       },
     ],
     driveLink: "https://drive.google.com/your-google-drive-file-link",
@@ -48,13 +49,19 @@ const courses: Course[] = [
       { title: "Control Structures:", points: ["If-else, loops (for, while), break, continue, pass statements."] },
       { title: "Strings and Collections:", points: ["String operations, lists, tuples, sets, dictionaries."] },
       { title: "Functions and Files:", points: ["User-defined functions, recursion, lambda, file handling."] },
-      { title: "Object Oriented Programming:", points: ["Classes, objects, inheritance, polymorphism, exception handling."] }
+      { title: "Object Oriented Programming:", points: ["Classes, objects, inheritance, polymorphism, exception handling."] },
     ],
     driveLink: "https://drive.google.com/drive/folders/1SIGKXWl0yX-DToKgc3yoZbY6alRa1v6o",
   },
 ];
 
 export default function Courses() {
+  const [courses, setCourses] = useState<Course[]>(() => {
+    // Load courses from localStorage and merge with hardcoded courses
+    const storedCourses = localStorage.getItem("courses");
+    return storedCourses ? [...hardcodedCourses, ...JSON.parse(storedCourses)] : hardcodedCourses;
+  });
+
   const [selectedSemester, setSelectedSemester] = useState<string>("All");
   const [isGridView, setIsGridView] = useState<boolean>(true);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -88,16 +95,54 @@ export default function Courses() {
     };
   }, [isModalOpen, isAddCourseModalOpen]);
 
+  // Save new courses to localStorage whenever the courses state changes
+  useEffect(() => {
+    const nonHardcodedCourses = courses.filter(
+      (course) => !hardcodedCourses.some((hardcoded) => hardcoded.name === course.name)
+    );
+    localStorage.setItem("courses", JSON.stringify(nonHardcodedCourses));
+  }, [courses]);
+
   const handleAddCourse = () => {
-    courses.push(newCourse);
+    setCourses([...courses, newCourse]); // Add the new course to the state
     setIsAddCourseModalOpen(false);
     setNewCourse({ name: "", programme: "", semester: "", credits: "", content: [], driveLink: "", marksLink: "" });
   };
-
+  const handleDeleteCourse = (courseName: string) => {
+    // Filter out the course to be deleted
+    const updatedCourses = courses.filter((course) => course.name !== courseName);
+    setCourses(updatedCourses);
+  
+    // Update localStorage with non-hardcoded courses
+    const nonHardcodedCourses = updatedCourses.filter(
+      (course) => !hardcodedCourses.some((hardcoded) => hardcoded.name === course.name)
+    );
+    localStorage.setItem("courses", JSON.stringify(nonHardcodedCourses));
+  };
   const filteredCourses = courses
-    .filter(course => selectedSemester === "All" || course.semester === selectedSemester)
-    .filter(course => course.name.toLowerCase().includes(searchQuery.toLowerCase()))
-    .sort((a, b) => isAscending ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name));
+    .filter((course) => selectedSemester === "All" || course.semester === selectedSemester)
+    .filter((course) => course.name.toLowerCase().includes(searchQuery.toLowerCase()))
+    .sort((a, b) => (isAscending ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name)));
+    {filteredCourses.map((course, index) => (
+      <div
+        key={index}
+        className={`bg-white shadow-md rounded-lg cursor-pointer transition-all transform hover:scale-105 hover:shadow-xl hover:bg-gradient-to-r from-blue-100 to-blue-300 hover:text-gray-900 
+          ${isGridView ? "w-full sm:w-[250px] md:w-[300px] p-5 flex flex-col items-center" : "w-[90%] max-w-[950px] p-6 flex items-center justify-between"}`}
+      >
+        {/* Course Name */}
+        <h2 className={`text-lg font-semibold ${isGridView ? "text-center" : "text-left text-xl"}`}>
+          {course.name}
+        </h2>
+    
+        {/* Delete Button */}
+        <button
+          onClick={() => handleDeleteCourse(course.name)}
+          className="mt-4 px-4 py-2 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-600 transition-all"
+        >
+          Delete
+        </button>
+      </div>
+    ))}
 
   return (
     <div className="container mx-auto px-6 py-10 min-h-screen bg-gradient-to-br from-gray-50 to-gray-200">
@@ -107,12 +152,15 @@ export default function Courses() {
           <h1 className="text-4xl font-bold text-gray-900 tracking-wide">Courses</h1>
 
           {/* Styled Sorting Button */}
-          <button 
+          <button
             onClick={() => setIsAscending(!isAscending)}
             className="p-2 bg-white shadow-md rounded-full border border-gray-300 hover:bg-blue-500 hover:text-white transition-all transform hover:scale-105"
           >
-            {isAscending ? <ArrowUpAZ size={22} className="text-gray-600 hover:text-white transition-all" /> 
-                        : <ArrowDownAZ size={22} className="text-gray-600 hover:text-white transition-all" />}
+            {isAscending ? (
+              <ArrowUpAZ size={22} className="text-gray-600 hover:text-white transition-all" />
+            ) : (
+              <ArrowDownAZ size={22} className="text-gray-600 hover:text-white transition-all" />
+            )}
           </button>
         </div>
 
@@ -162,11 +210,9 @@ export default function Courses() {
 
       {/* Add Course Modal */}
       {isAddCourseModalOpen && (
-        <div
-          className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-40 backdrop-blur-lg p-4 z-50 modal-backdrop"
-        >
-          <div 
-            ref={modalRef} 
+        <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-40 backdrop-blur-lg p-4 z-50 modal-backdrop">
+          <div
+            ref={modalRef}
             className="bg-white p-6 rounded-2xl shadow-2xl max-w-lg sm:max-w-xl md:max-w-2xl w-[90%] border border-gray-300 relative overflow-auto max-h-[90vh]"
           >
             <button
@@ -231,62 +277,7 @@ export default function Courses() {
                 value={newCourse.marksLink || ""}
                 onChange={(e) => setNewCourse({ ...newCourse, marksLink: e.target.value })}
                 className="w-full p-3 border border-gray-300 rounded-lg"
-                required
               />
-
-              {/* Contents Section */}
-              <div className="space-y-2">
-                <h3 className="text-lg font-semibold text-gray-800">Contents</h3>
-                {newCourse.content.map((section, index) => (
-                  <div key={index} className="space-y-2 border p-3 rounded-lg">
-                    <input
-                      type="text"
-                      placeholder="Content Title"
-                      value={section.title}
-                      onChange={(e) => {
-                        const updatedContent = [...newCourse.content];
-                        updatedContent[index].title = e.target.value;
-                        setNewCourse({ ...newCourse, content: updatedContent });
-                      }}
-                      className="w-full p-2 border border-gray-300 rounded-lg"
-                      required
-                    />
-                    <textarea
-                      placeholder="Points (comma-separated)"
-                      value={section.points.join(", ")}
-                      onChange={(e) => {
-                        const updatedContent = [...newCourse.content];
-                        updatedContent[index].points = e.target.value.split(",").map((point) => point.trim());
-                        setNewCourse({ ...newCourse, content: updatedContent });
-                      }}
-                      className="w-full p-2 border border-gray-300 rounded-lg"
-                      required
-                    />
-                    <button
-                      type="button"
-                      onClick={() => {
-                        const updatedContent = newCourse.content.filter((_, i) => i !== index);
-                        setNewCourse({ ...newCourse, content: updatedContent });
-                      }}
-                      className="text-red-500 hover:underline"
-                    >
-                      Remove Section
-                    </button>
-                  </div>
-                ))}
-                <button
-                  type="button"
-                  onClick={() =>
-                    setNewCourse({
-                      ...newCourse,
-                      content: [...newCourse.content, { title: "", points: [] }],
-                    })
-                  }
-                  className="text-blue-500 hover:underline"
-                >
-                  Add Section
-                </button>
-              </div>
 
               <button
                 type="submit"
@@ -307,7 +298,10 @@ export default function Courses() {
               key={index}
               className={`bg-white shadow-md rounded-lg cursor-pointer transition-all transform hover:scale-105 hover:shadow-xl hover:bg-gradient-to-r from-blue-100 to-blue-300 hover:text-gray-900 
                 ${isGridView ? "w-full sm:w-[250px] md:w-[300px] p-5 flex flex-col items-center" : "w-[90%] max-w-[950px] p-6 flex items-center justify-between"}`}
-              onClick={() => { setSelectedCourse(course); setIsModalOpen(true); }}
+              onClick={() => {
+                setSelectedCourse(course);
+                setIsModalOpen(true);
+              }}
             >
               {/* Show Icon Only in Grid Mode */}
               {isGridView && <BookOpen size={50} className="mb-3 transition-transform duration-300 hover:rotate-12" />}
@@ -333,11 +327,10 @@ export default function Courses() {
       {/* Modal */}
       {isModalOpen && selectedCourse && (
         <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-40 backdrop-blur-lg p-4 modal-backdrop">
-          <div 
-            ref={modalRef} 
+          <div
+            ref={modalRef}
             className="bg-white p-6 rounded-2xl shadow-2xl max-w-lg sm:max-w-xl md:max-w-2xl w-[90%] border border-gray-300 relative overflow-auto max-h-[90vh]"
           >
-
             {/* Close Button (Inside the Card) */}
             <button
               className="absolute top-3 right-3 text-gray-600 hover:text-red-500 transition"
@@ -349,9 +342,15 @@ export default function Courses() {
             <h2 className="text-3xl font-bold text-center text-blue-600 mb-4">{selectedCourse.name}</h2>
 
             <div className="bg-gray-100 p-4 rounded-lg mb-4 text-gray-700 shadow-inner">
-              <p><strong>📖 Programme:</strong> {selectedCourse.programme}</p>
-              <p><strong>📆 Semester:</strong> {selectedCourse.semester}</p>
-              <p><strong>🎓 Credits:</strong> {selectedCourse.credits}</p>
+              <p>
+                <strong>📖 Programme:</strong> {selectedCourse.programme}
+              </p>
+              <p>
+                <strong>📆 Semester:</strong> {selectedCourse.semester}
+              </p>
+              <p>
+                <strong>🎓 Credits:</strong> {selectedCourse.credits}
+              </p>
             </div>
 
             {/* Scrollable Content */}
@@ -399,4 +398,3 @@ export default function Courses() {
     </div>
   );
 }
-

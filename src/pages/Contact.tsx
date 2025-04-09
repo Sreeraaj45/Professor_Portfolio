@@ -2,8 +2,12 @@ import { Mail, MapPin } from 'lucide-react';
 import { useRef, useState } from 'react';
 import emailjs from '@emailjs/browser';
 
+// Initialize EmailJS
+emailjs.init('yoATGaLOsyPVu4hyfCV');
+
 export default function Contact() {
   const [messageSent, setMessageSent] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const form = useRef<HTMLFormElement | null>(null);
 
   const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
@@ -11,17 +15,17 @@ export default function Contact() {
 
     if (form.current) {
       emailjs
-        .sendForm('service_name', 'template_name', form.current, {
-          publicKey: 'emailjs_public_key', // emailkey must be added
-        })
+        .sendForm('service_9egrfhp', 'template_d1la5db', form.current, 'ATGaLOsyPVu4hyfCV')
         .then(
           () => {
             setMessageSent(true);
+            setErrorMessage(null); // Clear any previous error
             console.log('SUCCESS!');
           },
           (error) => {
             console.log('FAILED...', error.text);
             setMessageSent(false);
+            setErrorMessage('Failed to send your message. Please try again later.');
           }
         );
     }
@@ -48,7 +52,6 @@ export default function Contact() {
                   <Mail className="w-5 h-5 text-blue-600 mr-3" />
                   <span>sunilchinnahalli@gmail.com</span>
                 </div>
-
                 <div className="flex items-center text-gray-700">
                   <MapPin className="w-5 h-5 text-blue-600 mr-3" />
                   <span>Hubli, Karnataka, India</span>
@@ -110,7 +113,13 @@ export default function Contact() {
               </div>
             )}
 
-            {/* Updated Button with Gradient and Hover Effects */}
+            {/* Error Message */}
+            {errorMessage && (
+              <div className="mt-4 text-center text-red-600 font-semibold">
+                {errorMessage}
+              </div>
+            )}
+
             <button
               type="submit"
               className="w-full px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-700 text-white rounded-lg shadow-md hover:scale-105 hover:shadow-lg transition-all duration-300"
