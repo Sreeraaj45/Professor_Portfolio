@@ -28,20 +28,20 @@ export default function About() {
   }, []);
 
   const education = [
-    { title: "Bachelor of Engineering (B.E)", school: "KVG College of Engineering", year: "2005 - 2009", img: kvgImg },
-    { title: "Master of Engineering (M.Eng)", school: "UVCE, Bengaluru", year: "2013 - 2015", img: uvceImg },
     { title: "Ph.D. in Machine Learning & Deep Learning", school: "NIT Karnataka", year: "2018 - 2023", img: nitkImg },
+    { title: "Master of Engineering (M.Eng)", school: "UVCE, Bengaluru", year: "2013 - 2015", img: uvceImg },
+    { title: "Bachelor of Engineering (B.E)", school: "KVG College of Engineering", year: "2005 - 2009", img: kvgImg },    
   ];
 
   const experiences = [
-    { title: "Lecturer", company: "Vivekananda College of Engineering", year: "Jul 2011 - Jun 2013", img: vivekanandaImg },
-    { title: "Assistant Professor", company: "BNM Institute of Technology", year: "Jan 2016 - May 2016", img: bnmImg },
-    { title: "Assistant Professor", company: "Sahyadri College of Engineering", year: "Jul 2016 - Jul 2017", img: sahyadriImg },
-    { title: "Assistant Professor", company: "Srinivas Institute of Technology", year: "Aug 2017 - Dec 2018", img: srinivasImg },
-    { title: "Research Scholar", company: "NIT Karnataka", year: "Dec 2018 - Jan 2023", img: nitkImg },
-    { title: "Assistant Professor", company: "BNM Institute of Technology", year: "Feb 2023 - Aug 2023", img: bnmImg },
-    { title: "Associate Professor", company: "BNM Institute of Technology", year: "Sep 2023 - Jan 2024", img: bnmImg },
     { title: "Assistant Professor", company: "IIIT Dharwad", year: "Feb 2024 - Present", img: iiitImg },
+    { title: "Associate Professor", company: "BNM Institute of Technology", year: "Sep 2023 - Jan 2024", img: bnmImg },
+    { title: "Assistant Professor", company: "BNM Institute of Technology", year: "Feb 2023 - Aug 2023", img: bnmImg },
+    { title: "Research Scholar", company: "NIT Karnataka", year: "Dec 2018 - Jan 2023", img: nitkImg },
+    { title: "Assistant Professor", company: "Srinivas Institute of Technology", year: "Aug 2017 - Dec 2018", img: srinivasImg },
+    { title: "Assistant Professor", company: "Sahyadri College of Engineering", year: "Jul 2016 - Jul 2017", img: sahyadriImg },
+    { title: "Assistant Professor", company: "BNM Institute of Technology", year: "Jan 2016 - May 2016", img: bnmImg },
+    { title: "Lecturer", company: "Vivekananda College of Engineering", year: "Jul 2011 - Jun 2013", img: vivekanandaImg },    
   ];
 
   return (

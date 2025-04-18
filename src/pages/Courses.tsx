@@ -198,12 +198,12 @@ export default function Courses() {
             </select>
 
             {/* Add Course Button */}
-            <button
+            {/* <button
               onClick={() => setIsAddCourseModalOpen(true)}
               className="p-3 bg-green-500 text-white rounded-lg shadow-md hover:bg-green-700 transition"
             >
               Add Course
-            </button>
+            </button> */}
           </div>
         </div>
       </div>

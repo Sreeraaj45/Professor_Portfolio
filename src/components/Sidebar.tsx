@@ -7,7 +7,7 @@ import IIITDWDIcon from '../assets/iiitdwd_icon.png';
 const navItems = [
   { path: '/', icon: Home, label: 'Home' },
   { path: '/about', icon: User, label: 'About' },
-  { path: '/skills', icon: Code2, label: 'Skills' },
+  { path: '/skills', icon: Code2, label: 'Skills & Testimonials' },
   { path: '/projects', icon: Briefcase, label: 'Projects' },
   { path: '/courses', icon: Book, label: 'Courses' },
   { path: '/timetable', icon: Calendar, label: 'Timetable' }, 
