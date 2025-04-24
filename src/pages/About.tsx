@@ -247,6 +247,55 @@ export default function About() {
               </div>
             ))}
           </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10" data-aos="fade-up">
+            <div className="w-full md:max-w-md mx-auto">
+              {/* Marathon Participation & Results */}
+              <div className="bg-white rounded-xl shadow-md p-4 transition-all hover:shadow-lg hover:scale-105 duration-300 w-full">
+                <h3 className="text-lg font-bold mb-3 text-gray-800 flex items-center gap-2">
+                  <Trophy className="w-5 h-5 text-red-600" /> Marathon Participation & Results
+                </h3>
+
+                <ul className="space-y-2">
+                  {[
+                    {
+                      label: "Tata Mumbai Marathon 2018 – Sport Timing Solutions",
+                      link: "https://sportstimingsolutions.in/results?q=eyJlX25hbWUiOiJUYXRhIE11bWJhaSBNYXJhdGhvbiAyMDE4IiwiZV9pZCI6MzcwNTYsImJpYk5vIjoxMjEwfQ%3D%3D",
+                      icon: <Trophy className="w-4 h-4" />
+                    },
+                    {
+                      label: "Tata Mumbai Marathon 2020 – Sport Timing Solutions",
+                      link: "https://sportstimingsolutions.in/results?q=eyJlX25hbWUiOiJUYXRhIE11bWJhaSBNYXJhdGhvbiAyMDIwIiwiZV9pZCI6NTY2NjIsImJpYk5vIjo1MzgxfQ%3D%3D",
+                      icon: <Trophy className="w-4 h-4" />
+                    },
+                    {
+                      label: "NITK Karavali Marathon 2020 – RaceTime Results List",
+                      link: "https://app.racetime.in/results/list?race=2020nitkkaravalimarathon",
+                      icon: <Trophy className="w-4 h-4" />
+                    },
+                    {
+                      label: "NITK Karavali Marathon 2020 – Detailed Result",
+                      link: "https://app.racetime.in/results/details?raceID=09023d70-4845-495b-99ca-ab41dd53e6d8&event=42.2K&bibNo=42025&name=SUNIL%20C%20K",
+                      icon: <Trophy className="w-4 h-4" />
+                    }
+                  ].map(({ label, link, icon }, index) => (
+                    <a key={index} href={link} target="_blank" rel="noopener noreferrer" className="block">
+                      <button 
+                        className="flex items-center gap-3 p-2 rounded-lg bg-gray-100 hover:bg-blue-100 transition-all duration-300 shadow-sm hover:shadow-md w-full"
+                      >
+                        <span className="w-8 h-8 flex items-center justify-center bg-blue-600 text-white rounded-full group-hover:scale-110 transition-transform duration-300">
+                          {icon}
+                        </span>
+                        <span className="text-gray-700 font-medium hover:text-blue-700 transition-all text-md">
+                          {label}
+                        </span>
+                      </button>
+                    </a>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+
       </div>
     </div>
   );
